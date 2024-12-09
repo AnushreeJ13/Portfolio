@@ -1,86 +1,108 @@
 import React, { useRef } from 'react';
-import { EXPERIENCES } from '../constants';
 import { motion, useInView } from 'framer-motion';
+import { EXPERIENCES } from '../constants';
+import { Briefcase, Star } from 'lucide-react';
 
 const Experience = () => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true }); // Trigger animation once when in view
+    const isInView = useInView(ref, { once: false, amount: 0.2 });
 
-    // Define animation variants
     const containerVariants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.5 } },
+        visible: { 
+            opacity: 1, 
+            transition: { 
+                staggerChildren: 0.2,
+                delayChildren: 0.3
+            } 
+        }
     };
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: (index) => ({
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, delay: index * 0.2 },
-        }),
+        hidden: { 
+            opacity: 0, 
+            x: -50,
+            scale: 0.9 
+        },
+        visible: { 
+            opacity: 1, 
+            x: 0,
+            scale: 1,
+            transition: { 
+                type: "spring",
+                stiffness: 100,
+                damping: 10
+            }
+        }
     };
 
     return (
-        <motion.div
-            ref={ref}
-            className='border-b border-neutral-900 pb-4'
-            initial='hidden'
-            animate={isInView ? 'visible' : 'hidden'} // Animate when in view
-            variants={containerVariants}
-        >
-            <h1 className='my-20 text-center text-4xl text-neutral-300'>Experience</h1>
-            <div>
-                {EXPERIENCES.map((experience, index) => (
-                    <motion.div
-                        key={index}
-                        className='mb-8 flex flex-wrap lg:justify-center'
-                        variants={itemVariants}
-                        custom={index}
-                    >
-                        <div className="w-full lg:w-1/4">
-                            <motion.p
-                                className='mb-4 font-bold text-lg text-slate-500 text-neutral-400 bg-slate-900 '
-                                variants={itemVariants}
-                                custom={index}
-                            >
-                                {experience.year}
-                            </motion.p>
-                        </div>
-                        <div className="w-full max-w-xl lg:w-3/4">
-                            <motion.h6
-                                className='mb-4 font-semibold text-neutral-100 bg-slate-900 p-3 rounded-md'
-                                variants={itemVariants}
-                                custom={index}
-                            >
-                                {experience.role} -{' '}
-                                <span className='text-small text-purple-200'>
+        <div className="bg-gradient-to-b from-slate-900 to-neutral-900 py-16">
+            <motion.div 
+                ref={ref}
+                className="container mx-auto px-4"
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                variants={containerVariants}
+            >
+                <motion.h2 
+                    className="text-5xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    Professional Journey
+                </motion.h2>
+
+                <div className="space-y-8">
+                    {EXPERIENCES.map((experience, index) => (
+                        <motion.div 
+                            key={index}
+                            className="bg-neutral-800 rounded-xl p-6 shadow-lg border border-neutral-700 hover:border-purple-500 transition-all duration-300 group"
+                            variants={itemVariants}
+                            whileHover={{ 
+                                scale: 1.03,
+                                boxShadow: "0 10px 20px rgba(136, 58, 234, 0.3)"
+                            }}
+                        >
+                            <div className="flex items-center mb-4">
+                                <Briefcase className="mr-3 text-purple-400" size={24} />
+                                <h3 className="text-2xl font-semibold text-neutral-100">
+                                    {experience.role}
+                                </h3>
+                            </div>
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-purple-300 font-medium">
                                     {experience.company}
                                 </span>
-                            </motion.h6>
-                            <p className='mb-4 text-neutral-400'>{experience.description}</p>
-                            <div className='flex flex-wrap'>
+                                <span className="text-neutral-400 text-sm">
+                                    {experience.year}
+                                </span>
+                            </div>
+                            <p className="text-neutral-300 mb-4">
+                                {experience.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
                                 {experience.skills.map((skill, skillIndex) => (
-                                    <motion.span
+                                    <motion.span 
                                         key={skillIndex}
-                                        className='mr-2 mt-4 rounded px-3 py-1 text-small font-medium bg-neutral-900'
-                                        style={{
-                                            background: 'linear-gradient(to right, #A855F7,#E5E7EB)', // Gradient colors
-                                            WebkitBackgroundClip: 'text', // For text gradient effect
-                                            WebkitTextFillColor: 'transparent', // Make text transparent to show gradient
+                                        className="px-3 py-1 bg-neutral-700 text-neutral-200 rounded-full text-xs font-medium"
+                                        whileHover={{ 
+                                            scale: 1.1,
+                                            backgroundColor: "rgb(126, 34, 206)"
                                         }}
-                                        whileHover={{ scale: 1.2 }} // Scale effect on hover
-                                        transition={{ duration: 0.2 }} // Transition duration for hover effect
+                                        transition={{ type: "spring", stiffness: 300 }}
                                     >
+                                        <Star size={12} className="inline mr-1 text-yellow-400" />
                                         {skill}
                                     </motion.span>
                                 ))}
                             </div>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </motion.div>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+        </div>
     );
 };
 
