@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { EXPERIENCES } from '../constants';
-import { Briefcase, Star } from 'lucide-react';
 
 const Experience = () => {
     const ref = useRef(null);
@@ -66,7 +65,12 @@ const Experience = () => {
                             }}
                         >
                             <div className="flex items-center mb-4">
-                                <Briefcase className="mr-3 text-purple-400" size={24} />
+                                <div className="w-8 h-8 mr-3 bg-purple-400 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                    </svg>
+                                </div>
                                 <h3 className="text-2xl font-semibold text-neutral-100">
                                     {experience.role}
                                 </h3>
@@ -86,14 +90,16 @@ const Experience = () => {
                                 {experience.skills.map((skill, skillIndex) => (
                                     <motion.span 
                                         key={skillIndex}
-                                        className="px-3 py-1 bg-neutral-700 text-neutral-200 rounded-full text-xs font-medium"
+                                        className="px-3 py-1 bg-neutral-700 text-neutral-200 rounded-full text-xs font-medium flex items-center"
                                         whileHover={{ 
                                             scale: 1.1,
                                             backgroundColor: "rgb(126, 34, 206)"
                                         }}
                                         transition={{ type: "spring", stiffness: 300 }}
                                     >
-                                        <Star size={12} className="inline mr-1 text-yellow-400" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 text-yellow-400">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        </svg>
                                         {skill}
                                     </motion.span>
                                 ))}
