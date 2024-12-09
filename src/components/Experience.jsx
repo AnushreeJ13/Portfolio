@@ -40,8 +40,8 @@ const Experience = () => {
                     >
                         <div className="w-full lg:w-1/4">
                             <motion.p
-                                className='mb-2 text-small text-neutral-400'
-                                variants={itemVariants} // Use itemVariants for consistency
+                                className='mb-4 font-bold text-lg text-slate-500 text-neutral-400 bg-slate-900 '
+                                variants={itemVariants}
                                 custom={index}
                             >
                                 {experience.year}
@@ -49,8 +49,8 @@ const Experience = () => {
                         </div>
                         <div className="w-full max-w-xl lg:w-3/4">
                             <motion.h6
-                                className='mb-2 font-semibold text-neutral-400'
-                                variants={itemVariants} // Use itemVariants for consistency
+                                className='mb-4 font-semibold text-neutral-100 bg-slate-900 p-3 rounded-md'
+                                variants={itemVariants}
                                 custom={index}
                             >
                                 {experience.role} -{' '}
