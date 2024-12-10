@@ -94,7 +94,7 @@ const Education = () => {
                 ${((index % 2 === 0) && (index !== 2))
                   ? 'bg-pink-200 md:mr-auto text-left md:text-right'
                   : index === 2
-                    ? 'bg-indigo-950 md:mr-auto text-left md:text-right'
+                    ? 'bg-violet-950 md:mr-auto text-left md:text-right'
                     : 'bg-slate-600 md:ml-auto text-left md:text-left'
                 }
                 text-lg lg:text-xl font-light tracking-tight text-gray-400
@@ -134,7 +134,7 @@ const Education = () => {
               </p>
               <p className={`
                 text-sm 
-                ${index === 2 
+                ${index %2== 0 
                   ? 'text-gray-200' 
                   : 'text-gray-700'
                 }`}
