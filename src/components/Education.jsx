@@ -88,19 +88,20 @@ const Education = () => {
             "></div>
             
             {/* Education Card */}
-            <div className={`
-              w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-              ${index % 2 === 0 &&index!==2
-                ? 'md:mr-auto bg-pink-300 text-left md:text-right text-lg lg:text-xl font-light tracking-tight text-gray-400' 
-                : 'md:ml-auto bg-slate-500 text-left md:text-left text-lg lg:text-xl font-light tracking-tight text-gray-400'
-              }
-              ${index===2
-                ? 'md:mr-auto bg-purple-900 text-left md:text-right text-lg lg:text-xl font-light tracking-tight text-gray-400' 
-                : 'md:ml-auto bg-slate-500 text-left md:text-left text-lg lg:text-xl font-light tracking-tight text-gray-400'
-              }
-              
-
-            `}>
+            <div 
+                className={`
+                 w-full md:w-1/2 p-6 rounded-lg shadow-lg 
+                 ${index % 2 === 0 && index !== 2
+                  ? 'bg-pink-300 md:mr-auto text-left md:text-right' 
+                  : 'bg-slate-500 md:ml-auto text-left md:text-left'
+                 }
+                 ${index === 2
+                  ? 'bg-purple-900 md:mr-auto text-left md:text-right' 
+                  : ''
+                 }
+                 text-lg lg:text-xl font-light tracking-tight text-gray-400
+                `}
+            >
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {edu.institution}
               </h3>
