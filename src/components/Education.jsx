@@ -58,9 +58,9 @@ const Education = () => {
       ref={educationRef} 
       className="container mx-auto px-4 py-12 max-w-4xl"
     >
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Education
-      </h2>
+      <h2 className='my-20 text-center text-4xl'>
+                Education
+    </h2>
       
       <div className="relative">
         {/* Vertical line */}
@@ -90,10 +90,16 @@ const Education = () => {
             {/* Education Card */}
             <div className={`
               w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-              ${index % 2 === 0 
-                ? 'md:mr-auto bg-blue-50 text-left md:text-right' 
-                : 'md:ml-auto bg-green-50 text-left md:text-left'
+              ${index % 2 === 0 &&index!=2
+                ? 'md:mr-auto bg-pink-300 text-left md:text-right' 
+                : 'md:ml-auto bg-slate-500 text-left md:text-left'
               }
+              ${index==2
+                ? 'md:mr-auto bg-purple-600 text-left md:text-right' 
+                : 'md:ml-auto bg-slate-500 text-left md:text-left'
+              }
+              
+
             `}>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {edu.institution}
