@@ -91,54 +91,54 @@ const Education = () => {
             <div 
               className={`
                 w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-                jsxCopy${((index % 2 === 0) && (index !== 2))
-                ? 'bg-pink-200 md:mr-auto text-left md:text-right'
-                : index === 2
-                 ? 'bg-indigo-900 md:mr-auto text-left md:text-right'
+                ${((index % 2 === 0) && (index !== 2))
+                  ? 'bg-pink-200 md:mr-auto text-left md:text-right'
+                  : index === 2
+                    ? 'bg-indigo-900 md:mr-auto text-left md:text-right'
                     : 'bg-slate-400 md:ml-auto text-left md:text-left'
-                    }
-                    text-lg lg:text-xl font-light tracking-tight text-gray-400
-                    `}
-             >
-                    <h3 className={`
-                        text-xl font-semibold 
-                        ${index === 2 
-                        ? 'text-white' 
-                        : 'text-gray-800'
-                        } 
-                        mb-2`}
-                    >
-                        {edu.institution}
-                    </h3>
-                    <p className={`
-                        text-sm 
-                        ${index === 2 
-                        ? 'text-gray-200' 
-                        : 'text-gray-700'
-                        } 
-                        mb-1`}
-                    >
-                        {edu.year}
-                    </p>
-                    <p className={`
-                        text-md font-medium 
-                        ${index === 2 
-                        ? 'text-white' 
-                        : 'text-gray-800'
-                        } 
-                        mb-1`}
-                    >
-                        {edu.type}
-                    </p>
-                <p className={`
+                }
+                text-lg lg:text-xl font-light tracking-tight text-gray-400
+              `}
+            >
+              <h3 className={`
+                text-xl font-semibold 
+                ${index === 2 
+                  ? 'text-white' 
+                  : 'text-gray-800'
+                } 
+                mb-2`}
+              >
+                {edu.institution}
+              </h3>
+              <p className={`
+                text-sm 
+                ${index === 2 
+                  ? 'text-gray-200' 
+                  : 'text-gray-700'
+                } 
+                mb-1`}
+              >
+                {edu.year}
+              </p>
+              <p className={`
+                text-md font-medium 
+                ${index === 2 
+                  ? 'text-white' 
+                  : 'text-gray-800'
+                } 
+                mb-1`}
+              >
+                {edu.type}
+              </p>
+              <p className={`
                 text-sm 
                 ${index === 2 
                   ? 'text-gray-200' 
                   : 'text-gray-700'
                 }`}
               >
-              {edu.percentage}
-            </p>
+                {edu.percentage}
+              </p>
             </div>
           </motion.div>
         ))}
