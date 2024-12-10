@@ -39,7 +39,7 @@ const Experience = () => {
         <div className="bg-gradient-to-b from-slate-900 to-neutral-900 py-6 sm:py-12">
             <motion.div 
                 ref={ref}
-                className="container mx-auto px-4 sm:px-6 lg:px-8"
+                className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl"
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
                 variants={containerVariants}

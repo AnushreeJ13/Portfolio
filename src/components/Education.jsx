@@ -90,11 +90,11 @@ const Education = () => {
             {/* Education Card */}
             <div className={`
               w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-              ${index % 2 === 0 &&index!=2
+              ${index % 2 === 0 &&index!==0
                 ? 'md:mr-auto bg-pink-300 text-left md:text-right' 
                 : 'md:ml-auto bg-slate-500 text-left md:text-left'
               }
-              ${index==2
+              ${index===2
                 ? 'md:mr-auto bg-purple-600 text-left md:text-right' 
                 : 'md:ml-auto bg-slate-500 text-left md:text-left'
               }
