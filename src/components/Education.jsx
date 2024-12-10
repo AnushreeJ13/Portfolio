@@ -2,86 +2,111 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from "framer-motion";
 
 const Education = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const educationRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const educationRef = useRef(null);
 
-    const educationDetails = [
-        {
-            institution: "Indira Gandhi Delhi Technical University for Women",
-            year: "2023 - 2027",
-            type: "B.Tech - CSE - AI",
-            percentage: "CGPA: 9.69",
-        },
-        {
-            institution: "Mayo International School",
-            year: "2021 - 2023",
-            type: "Senior Secondary",
-            percentage: "Percentage: 95.2%",
-        },
-        {
-            institution: "DPS Indirapuram",
-            year: "2008 - 2021",
-            type: "Secondary",
-            percentage: "Percentage: 98.6%",
-        },
-    ];
+  const educationDetails = [
+    {
+      institution: "Indira Gandhi Delhi Technical University for Women",
+      year: "2023 - 2027",
+      type: "B.Tech - CSE - AI",
+      percentage: "CGPA: 9.69",
+    },
+    {
+      institution: "Mayo International School",
+      year: "2021 - 2023",
+      type: "Senior Secondary",
+      percentage: "Percentage: 95.2%",
+    },
+    {
+      institution: "DPS Indirapuram",
+      year: "2008 - 2021",
+      type: "Secondary",
+      percentage: "Percentage: 98.6%",
+    },
+  ];
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const { top } = educationRef.current.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!educationRef.current) return;
 
-            // Check if the element is in the viewport
-            if (top < windowHeight && top >= 0) {
-                displayNextEducation();
-                window.removeEventListener("scroll", handleScroll); // Remove the event listener once visible
-            }
-        };
+      const { top } = educationRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-        const displayNextEducation = () => {
-            // If there's no more education details to show, return early
-            if (currentIndex >= educationDetails.length) return;
+      // Check if the element is in the viewport
+      if (top < windowHeight && top >= 0) {
+        displayNextEducation();
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
 
-            // Set a timeout to display the next education entry
-            setTimeout(() => {
-                setCurrentIndex(prevIndex => prevIndex + 1); // Use functional state update
-                displayNextEducation(); // Call the next display after delay
-            }, 1000); // Delay before showing the next education
-        };
+    const displayNextEducation = () => {
+      if (currentIndex >= educationDetails.length) return;
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll); // Cleanup
-    }, [currentIndex, educationDetails.length]);
+      setTimeout(() => {
+        setCurrentIndex(prevIndex => prevIndex + 1);
+        displayNextEducation();
+      }, 500); // Reduced delay for smoother animation
+    };
 
-    return (
-        <div ref={educationRef} className="border-b border-neutral-900 pb-4">
-            <h1 className='text-center text-4xl border-b border-neutral-800 pb-16'>Education</h1>
-            <div className="flex flex-col items-center w-full max-w-2xl mx-auto">
-                {educationDetails.map((edu, index) => (
-                    <motion.div
-                        key={index}
-                        className="relative w-full text-left py-4"
-                        initial={{ opacity: 0, y: 30 }} // Start hidden
-                        animate={index <= currentIndex ? { opacity: 1, y: 0 } : {}} // Fade in when visible
-                        transition={{ duration: 0.5 }} // Animation duration
-                    >
-                        {/* Education Entry */}
-                        <div className="relative z-10 text-white"> {/* Ensure text is above any potential background */}
-                            <h3 className="text-3xl font-semibold">{edu.institution}</h3>
-                            <p className="text-lg text-neutral-300">{edu.year}</p>
-                            <p className="text-lg text-neutral-300">{edu.type}</p>
-                            <p className="text-lg text-purple-300">{edu.percentage}</p>
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [currentIndex, educationDetails.length]);
 
-                            {/* Line to separate entries */}
-                            {index < educationDetails.length - 1 && (
-                                <div className="absolute left-0 top-full w-full border-t border-pink-300 mt-4"></div>
-                            )}
-                        </div>
-                    </motion.div>
-                ))}
+  return (
+    <div 
+      ref={educationRef} 
+      className="container mx-auto px-4 py-12 max-w-4xl"
+    >
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        Education
+      </h2>
+      
+      <div className="relative">
+        {/* Vertical line */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full hidden md:block"></div>
+        
+        {educationDetails.map((edu, index) => (
+          <motion.div 
+            key={index}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+            animate={{ 
+              opacity: index < currentIndex ? 1 : 0, 
+              x: index < currentIndex ? 0 : (index % 2 === 0 ? -50 : 50) 
+            }}
+            transition={{ duration: 0.5, delay: index * 0.5 }}
+            className={`
+              flex flex-col md:flex-row items-center mb-8 
+              ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}
+            `}
+          >
+            {/* Timeline Dot */}
+            <div className="
+              w-6 h-6 rounded-full bg-blue-500 
+              absolute left-1/2 transform -translate-x-1/2 
+              hidden md:block
+            "></div>
+            
+            {/* Education Card */}
+            <div className={`
+              w-full md:w-1/2 p-6 rounded-lg shadow-lg 
+              ${index % 2 === 0 
+                ? 'md:mr-auto bg-blue-50 text-left md:text-right' 
+                : 'md:ml-auto bg-green-50 text-left md:text-left'
+              }
+            `}>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                {edu.institution}
+              </h3>
+              <p className="text-sm text-gray-600 mb-1">{edu.year}</p>
+              <p className="text-md font-medium text-gray-700 mb-1">{edu.type}</p>
+              <p className="text-sm text-gray-600">{edu.percentage}</p>
             </div>
-        </div>
-    );
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Education;
