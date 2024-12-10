@@ -94,7 +94,7 @@ const Education = () => {
                 ${((index % 2 === 0) && (index !== 2))
                   ? 'bg-pink-200 md:mr-auto text-left md:text-right'
                   : index === 2
-                    ? 'bg-violet-950 md:mr-auto text-left md:text-right'
+                    ? 'border-indigo-950 md:mr-auto text-left md:text-right'
                     : 'bg-slate-600 md:ml-auto text-left md:text-left'
                 }
                 text-lg lg:text-xl font-light tracking-tight text-gray-400
@@ -104,9 +104,9 @@ const Education = () => {
                 text-xl font-semibold 
                 ${index === 2 
                   ? 'text-gray-500' 
-                  : index%2===0
+                  : index%2===0&&index!==2
                   ?'text-gray-800'
-                  :'text-gray-600'
+                  :'text-gray-900'
                 } 
                 mb-2`}
               >
@@ -126,7 +126,9 @@ const Education = () => {
                 text-md font-medium 
                 ${index === 2 
                   ? 'text-white' 
-                  : 'text-gray-800'
+                  : index%2===0&&index!==2
+                  ?'text-gray-800'
+                  :'text-gray-800'
                 } 
                 mb-1`}
               >
@@ -134,9 +136,11 @@ const Education = () => {
               </p>
               <p className={`
                 text-sm 
-                ${index %2== 0 
+                ${index ===2
                   ? 'text-gray-200' 
-                  : 'text-gray-700'
+                  : index%2===0&&index!==2
+                  ?'text-gray-800'
+                  :'text-gray-700'
                 }`}
               >
                 {edu.percentage}
