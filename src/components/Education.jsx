@@ -82,7 +82,7 @@ const Education = () => {
           >
             {/* Timeline Dot */}
             <div className="
-              w-6 h-6 rounded-full bg-blue-500 
+              w-6 h-6 rounded-full bg-blue-900 
               absolute left-1/2 transform -translate-x-1/2 
               hidden md:block
             "></div>
@@ -91,7 +91,7 @@ const Education = () => {
             <div 
                 className={`
                  w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-                 ${index % 2 === 0 && index !== 2
+                 ${((index % 2 === 0) && (index !== 2))
                   ? 'bg-pink-300 md:mr-auto text-left md:text-right' 
                   : 'bg-slate-500 md:ml-auto text-left md:text-left'
                  }
