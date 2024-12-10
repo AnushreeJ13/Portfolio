@@ -94,8 +94,8 @@ const Education = () => {
                 ${((index % 2 === 0) && (index !== 2))
                   ? 'bg-pink-200 md:mr-auto text-left md:text-right'
                   : index === 2
-                    ? 'bg-indigo-900 md:mr-auto text-left md:text-right'
-                    : 'bg-slate-400 md:ml-auto text-left md:text-left'
+                    ? 'bg-indigo-950 md:mr-auto text-left md:text-right'
+                    : 'bg-slate-600 md:ml-auto text-left md:text-left'
                 }
                 text-lg lg:text-xl font-light tracking-tight text-gray-400
               `}
@@ -103,8 +103,10 @@ const Education = () => {
               <h3 className={`
                 text-xl font-semibold 
                 ${index === 2 
-                  ? 'text-white' 
-                  : 'text-gray-800'
+                  ? 'text-gray-500' 
+                  : index%2===0
+                  ?'text-gray-800'
+                  :'text-gray-600'
                 } 
                 mb-2`}
               >
