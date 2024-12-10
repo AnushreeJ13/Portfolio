@@ -92,12 +92,10 @@ const Education = () => {
               className={`
                 w-full md:w-1/2 p-6 rounded-lg shadow-lg 
                 ${((index % 2 === 0) && (index !== 2))
-                  ? 'bg-pink-300 md:mr-auto text-left md:text-right' 
-                  : 'bg-slate-500 md:ml-auto text-left md:text-left'
-                }
-                ${index === 2
-                  ? 'bg-purple-900 md:mr-auto text-left md:text-right' 
-                  : ''
+                  ? 'bg-pink-300 md:mr-auto text-left md:text-right'
+                  : index === 2
+                    ? 'bg-purple-900 md:mr-auto text-left md:text-right'
+                    : 'bg-slate-500 md:ml-auto text-left md:text-left'
                 }
                 text-lg lg:text-xl font-light tracking-tight text-gray-400
               `}
