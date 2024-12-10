@@ -59,8 +59,8 @@ const Education = () => {
       className="container mx-auto px-4 py-12 max-w-4xl"
     >
       <h2 className='my-20 text-center text-4xl'>
-                Education
-    </h2>
+        Education
+      </h2>
       
       <div className="relative">
         {/* Vertical line */}
@@ -89,18 +89,18 @@ const Education = () => {
             
             {/* Education Card */}
             <div 
-                className={`
-                 w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-                 ${((index % 2 === 0) && (index !== 2))
+              className={`
+                w-full md:w-1/2 p-6 rounded-lg shadow-lg 
+                ${((index % 2 === 0) && (index !== 2))
                   ? 'bg-pink-300 md:mr-auto text-left md:text-right' 
                   : 'bg-slate-500 md:ml-auto text-left md:text-left'
-                 }
-                 ${index === 2
+                }
+                ${index === 2
                   ? 'bg-purple-900 md:mr-auto text-left md:text-right' 
                   : ''
-                 }
-                 text-lg lg:text-xl font-light tracking-tight text-gray-400
-                `}
+                }
+                text-lg lg:text-xl font-light tracking-tight text-gray-400
+              `}
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {edu.institution}
