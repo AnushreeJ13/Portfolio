@@ -9,7 +9,19 @@ const ContactForm = () => {
     email: '',
     message: ''
   });
-
+  const saveData = async (name, email, message) => {
+    try {
+      await db.collection('messages').add({
+        name: name,
+        email: email,
+        message: message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      console.log('Form successfully submitted❤️');
+    } catch (error) {
+      console.error('Error saving data to Firestore: ', error);
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
