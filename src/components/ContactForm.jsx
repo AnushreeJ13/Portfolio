@@ -9,19 +9,11 @@ const ContactForm = () => {
     email: '',
     message: ''
   });
-  const saveData = async (name, email, message) => {
-    try {
-      await db.collection('messages').add({
-        name: name,
-        email: email,
-        message: message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      console.log('Form successfully submitted❤️');
-    } catch (error) {
-      console.error('Error saving data to Firestore: ', error);
-    }
-  };
+  
+  const [isSubmitted, setIsSubmitted] = useState(false); // Track submission status
+  const [isSaving, setIsSaving] = useState(false); // Track saving process
+
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -30,20 +22,36 @@ const ContactForm = () => {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSaving(true); // Set saving state to true to prevent multiple submissions
+
     try {
-      // Use the modular SDK syntax to add a document
+      // Add data to Firestore using modular SDK
       await addDoc(collection(db, 'messages'), {
         ...formData,
-        timestamp: serverTimestamp() // Use the imported serverTimestamp
+        timestamp: serverTimestamp() // Add a server timestamp
       });
+
       console.log('Form Data Submitted:', formData);
-      // Reset the form after submission
+      // Set submission status to true
+      setIsSubmitted(true);
+      
+      // Reset form fields after successful submission
       setFormData({ name: '', email: '', message: '' });
+
+      // Reset the "submitted" state after a few seconds to allow the message to disappear
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000); // Reset after 3 seconds
+
     } catch (error) {
-      console.error('Error submitting form data: ', error);
+      console.error('Error submitting form data:', error);
+      setIsSaving(false); // In case of error, allow another attempt
     }
+
+    setIsSaving(false); // After finishing saving, reset the saving state
   };
 
   return (
@@ -96,10 +104,18 @@ const ContactForm = () => {
           whileHover={{ scale: 1.2 }}
           type="submit"
           className="w-full bg-gradient-to-r from-pink-300 via-slate-500 to-purple-600 font-bold py-2 px-4 rounded-md hover:from-cyan-400 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+          disabled={isSaving} // Disable the button while saving
         >
-          Send Message
+          {isSaving ? 'Saving...' : 'Send Message'}
         </motion.button>
       </form>
+
+      {/* Show "Submitted" message after successful form submission */}
+      {isSubmitted && (
+        <div className="mt-4 text-center text-red-300-400 font-semibold">
+          <p>Message Submitted Successfully!❤️</p>
+        </div>
+      )}
     </div>
   );
 };
