@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import {motion} from "framer-motion"
+import { motion } from 'framer-motion';
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -9,18 +12,26 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value
-    });
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic (e.g., send data to backend or email service)
-    console.log('Form Data Submitted:', formData);
-    // Reset the form
-    setFormData({ name: '', email: '', message: '' });
+    try {
+      // Use the modular SDK syntax to add a document
+      await addDoc(collection(db, 'messages'), {
+        ...formData,
+        timestamp: serverTimestamp() // Use the imported serverTimestamp
+      });
+      console.log('Form Data Submitted:', formData);
+      // Reset the form after submission
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting form data: ', error);
+    }
   };
 
   return (
@@ -69,9 +80,11 @@ const ContactForm = () => {
             required
           ></textarea>
         </div>
-        <motion.button whileHover={{ scale: 1.2 }} onHoverStart={e => {}} onHoverEnd={e => {}}
+        <motion.button
+          whileHover={{ scale: 1.2 }}
           type="submit"
-          className="w-full bg-gradient-to-r  from-pink-300 via-slate-500 to-purple-600 font-bold py-2 px-4 rounded-md hover:from-cyan-400 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+          className="w-full bg-gradient-to-r from-pink-300 via-slate-500 to-purple-600 font-bold py-2 px-4 rounded-md hover:from-cyan-400 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+        >
           Send Message
         </motion.button>
       </form>
