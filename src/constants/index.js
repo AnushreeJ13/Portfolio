@@ -15,7 +15,7 @@ export const EXPERIENCES = [
     role: "Head Coordinator [Web Administration Team]",
     company: "IEEE IGDTUW",
     description: `Take care of the development and maintenance of web platforms as the Head Coordinator of the Web Administration Team at IEEE IGDTUW. Collaborates with developers to create scalable, user-friendly applications using technologies like React.js, Next.js, and MongoDB.`,
-    skills: ["Javascript", "React.js", "Next.js", "MongoDB"],
+    skills: ["Reactjs", "Tailwind CSS", "MySQL", "MongoDB"],
   },
   {
     year: "2024-Present",
@@ -29,7 +29,7 @@ export const EXPERIENCES = [
     role: "Member [Technical Team]",
     company: "Finivesta IGDTUW",
     description: `Contributes to the development and implementation of innovative solutions as a member of the Technical Team at Finivesta IGDTUW. Utilizes technologies such as JavaScript, React.js, Next.js, and MongoDB to create efficient web applications.`,
-    skills: ["Javascript", "React.js", "Next.js", "MongoDB"],
+    skills: ["ReactJs", "Tailwind CSS", "MySQL", "MongoDB","Javascript"],
   },
   {
     year: "2024-Present",
