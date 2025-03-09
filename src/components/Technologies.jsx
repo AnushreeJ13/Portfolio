@@ -11,14 +11,13 @@ const Technologies = () => {
     const technologies = [
         { icon: <FaPython className="text-5xl text-yellow-400" />, key: 'Python' },
         { icon: <SiCplusplus className="text-5xl text-blue-400" />, key: 'C++' },
-        { icon: <SiReact className="text-5xl text-cyan-400" />, key: 'React.js' },
+        { icon: <FaHtml5 className="text-5xl text-orange-500" />, key: "HTML" },
+        { icon: <FaCss3Alt className="text-5xl text-blue-500" />, key: "CSS" },
+        { icon: <FaJs className="text-5xl text-yellow-500" />, key: "JavaScript" },
         { icon: <SiGithub className="text-5xl bg-white p-2 text-black" />, key: 'GitHub' },
-        { icon: <SiPycharm className="text-5xl text-green-500" />, key: 'PyCharm' },
-        { icon: <FaDatabase className="text-5xl text-gray-600" />, key: 'SQL' },
-        { icon: <SiMongodb className="text-5xl text-green-500" />, key: 'MongoDB' },
-        { icon: <SiNumpy className="text-5xl text-blue-400" />, key: 'NumPy' },
-        { icon: <SiPandas className="text-5xl text-purple-400" />, key: 'Pandas' },
-        { icon: <SiTableau className="text-5xl text-blue-700" />, key: 'Tableau' },
+        
+       
+        
     ];
 
     useEffect(() => {
