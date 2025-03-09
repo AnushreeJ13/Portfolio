@@ -57,7 +57,7 @@ const Experience = () => {
                     {EXPERIENCES.map((experience, index) => (
                         <motion.div 
                             key={index}
-                            className="bg-neutral-800 rounded-xl p-4 shadow-lg border border-neutral-700 hover:border-purple-500 transition-all duration-300 group"
+                            className="bg-slate-950 rounded-xl p-4 shadow-lg border border-neutral-700 hover:border-purple-500 transition-all duration-300 group"
                             variants={itemVariants}
                             whileHover={{ 
                                 scale: 1.02, 
