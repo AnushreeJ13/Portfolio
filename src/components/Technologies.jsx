@@ -5,7 +5,6 @@ import { SiCplusplus, SiGithub } from "react-icons/si";
 
 const Technologies = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [clickedIndex, setClickedIndex] = useState(null);
     const ref = useRef(null);
 
     const technologies = [
@@ -41,33 +40,19 @@ const Technologies = () => {
         };
     }, []);
 
-    const handleIconClick = (index) => {
-        setClickedIndex(index);
-        setTimeout(() => {
-            setClickedIndex(null);
-        }, 300);
-    };
-
     return (
         <div ref={ref} className="border-b border-neutral-800 pb-24">
             <h1 className="my-20 text-center text-4xl">Technologies</h1>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-6">
                 {technologies.map((tech, index) => (
                     <motion.div
                         key={tech.key}
-                        className="rounded-2xl border-4 border-neutral-800 p-4 cursor-pointer"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                        onClick={() => handleIconClick(index)}
-                        whileTap={{ scale: 1.2 }}
+                        className="rounded-2xl border-4 border-neutral-800 p-6"
+                        initial={{ opacity: 0, y: 50, scale: 0.5 }}
+                        animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
+                        transition={{ duration: 0.5, delay: index * 0.2, ease: "easeOut" }}
                     >
-                        <motion.div
-                            animate={clickedIndex === index ? { scale: 1.5 } : {}}
-                            transition={{ duration: 0.3 }}
-                        >
-                            {tech.icon}
-                        </motion.div>
+                        {tech.icon}
                     </motion.div>
                 ))}
             </div>
