@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from "framer-motion";
 
 const Education = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleItems, setVisibleItems] = useState([]);
   const educationRef = useRef(null);
+  const itemRefs = useRef([]);
 
   const educationDetails = [
     {
@@ -11,145 +11,148 @@ const Education = () => {
       year: "2023 - 2027",
       type: "B.Tech - CSE - AI",
       percentage: "CGPA: 9.69",
+      bgColor: "bg-gradient-to-br from-pink-200 to-pink-300",
+      textColor: "text-gray-800"
     },
     {
       institution: "Mayo International School",
       year: "2021 - 2023",
       type: "Senior Secondary",
       percentage: "Percentage: 95.2%",
+      bgColor: "bg-gradient-to-br from-slate-600 to-slate-700",
+      textColor: "text-white"
     },
     {
       institution: "DPS Indirapuram",
       year: "2008 - 2021",
       type: "Secondary",
       percentage: "Percentage: 98.6%",
+      bgColor: "bg-gradient-to-br from-indigo-900 to-indigo-950",
+      textColor: "text-white"
     },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!educationRef.current) return;
+    // Set up intersection observer to trigger animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // When the component is in view, start the animation sequence
+            animateItems();
+            // Disconnect after animation starts
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-      const { top } = educationRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+    // Observe the education section
+    if (educationRef.current) {
+      observer.observe(educationRef.current);
+    }
 
-      // Check if the element is in the viewport
-      if (top < windowHeight && top >= 0) {
-        displayNextEducation();
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
+    return () => observer.disconnect();
+  }, []);
 
-    const displayNextEducation = () => {
-      if (currentIndex >= educationDetails.length) return;
-
+  const animateItems = () => {
+    // Animate items one by one with a delay
+    educationDetails.forEach((_, index) => {
       setTimeout(() => {
-        setCurrentIndex(prevIndex => prevIndex + 1);
-        displayNextEducation();
-      }, 500); // Reduced delay for smoother animation
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [currentIndex, educationDetails.length]);
+        setVisibleItems(prev => [...prev, index]);
+      }, 600 * index);
+    });
+  };
 
   return (
     <div 
       ref={educationRef} 
       className="container mx-auto px-4 py-12 max-w-4xl"
     >
-      <h2 className='my-20 text-center text-4xl'>
+      <h2 className="my-20 text-center text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
         Education
       </h2>
       
       <div className="relative">
-        {/* Vertical line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full hidden md:block"></div>
+        {/* Vertical timeline line */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-300 via-blue-400 to-pink-500 h-full hidden md:block"></div>
         
-        {educationDetails.map((edu, index) => (
-          <motion.div 
-            key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            animate={{ 
-              opacity: index < currentIndex ? 1 : 0, 
-              x: index < currentIndex ? 0 : (index % 2 === 0 ? -50 : 50) 
-            }}
-            transition={{ duration: 0.5, delay: index * 0.5 }}
-            className={`
-              flex flex-col md:flex-row items-center mb-8 
-              ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}
-            `}
-          >
-            {/* Timeline Dot */}
-            <div className="
-              w-6 h-6 rounded-full bg-black 
-              absolute left-1/2 transform -translate-x-1/2 
-              hidden md:block
-            "></div>
-            
-            {/* Education Card */}
+        {educationDetails.map((edu, index) => {
+          const isVisible = visibleItems.includes(index);
+          const isEven = index % 2 === 0;
+          
+          return (
             <div 
+              key={index}
+              ref={el => itemRefs.current[index] = el}
               className={`
-                w-full md:w-1/2 p-6 rounded-lg shadow-lg 
-                ${((index % 2 === 0) && (index !== 2))
-                  ? 'bg-pink-200 md:mr-auto text-left md:text-right'
-                  : index === 2
-                    ? 'bg-indigo-950 md:mr-auto text-left md:text-right'
-                    : 'bg-slate-600 md:ml-auto text-left md:text-left'
-                }
-                text-lg lg:text-xl font-light tracking-tight text-gray-400
+                flex flex-col md:flex-row items-center mb-16 relative
+                transition-all duration-700 ease-out
+                ${isEven ? 'md:flex-row-reverse' : ''}
+                ${isVisible ? 'opacity-100' : 'opacity-0'}
+                ${isVisible ? '' : isEven ? 'translate-x-16' : '-translate-x-16'}
               `}
             >
-              <h3 className={`
-                text-xl font-semibold 
-                ${index === 2 
-                  ? 'text-gray-500' 
-                  : index%2===0&&index!==2
-                  ?'text-gray-800'
-                  :'text-gray-900'
-                } 
-                mb-2`}
+              {/* Timeline dot with pulse effect */}
+              <div className={`
+                w-8 h-8 rounded-full bg-white border-4 border-purple-500
+                absolute left-1/2 transform -translate-x-1/2 z-10
+                hidden md:flex items-center justify-center
+                ${isVisible ? 'animate-pulse' : ''}
+              `}>
+                <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+              </div>
+              
+              {/* Education Card */}
+              <div 
+                className={`
+                  w-full md:w-5/12 p-6 rounded-xl shadow-lg
+                  transition-all duration-500
+                  ${edu.bgColor}
+                  ${isEven ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}
+                  transform hover:scale-105 hover:shadow-xl
+                  border border-white/10
+                `}
               >
-                {edu.institution}
-              </h3>
-              <p className={`
-                text-sm 
-                ${index === 2 
-                    ? 'text-gray-200' 
-                    : index%2===0&&index!==2
-                    ?'text-gray-800'
-                    :'text-gray-900'
-                } 
-                mb-1`}
-              >
-                {edu.year}
-              </p>
-              <p className={`
-                text-md font-medium 
-                ${index === 2 
-                  ? 'text-white' 
-                  : index%2===0&&index!==2
-                  ?'text-gray-800'
-                  :'text-gray-800'
-                } 
-                mb-1`}
-              >
-                {edu.type}
-              </p>
-              <p className={`
-                text-sm 
-                ${index ===2
-                  ? 'text-gray-200' 
-                  : index%2===0&&index!==2
-                  ?'text-gray-800'
-                  :'text-gray-900'
-                }`}
-              >
-                {edu.percentage}
-              </p>
+                <h3 className={`
+                  text-xl font-bold
+                  ${edu.textColor}
+                  mb-2`}
+                >
+                  {edu.institution}
+                </h3>
+                <p className={`
+                  text-sm font-medium
+                  ${edu.textColor} opacity-80
+                  mb-2`}
+                >
+                  {edu.year}
+                </p>
+                <p className={`
+                  text-md font-semibold
+                  ${edu.textColor}
+                  mb-2`}
+                >
+                  {edu.type}
+                </p>
+                <p className={`
+                  text-sm
+                  ${edu.textColor} opacity-90
+                `}>
+                  {edu.percentage}
+                </p>
+                
+                {/* Small connecting line to timeline */}
+                <div className={`
+                  hidden md:block absolute top-1/2 w-12 h-0.5 bg-gray-300
+                  ${isEven ? 'right-0 translate-x-12' : 'left-0 -translate-x-12'}
+                  transform -translate-y-1/2
+                `}></div>
+              </div>
             </div>
-          </motion.div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

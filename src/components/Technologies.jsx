@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPython, FaDatabase } from "react-icons/fa";
-import { SiCplusplus,SiReact, SiGithub, SiPycharm, SiNumpy, SiPandas, SiTableau, SiMongodb } from "react-icons/si";
-
+import { FaPython, FaHtml5, FaCss3Alt, FaJs } from "react-icons/fa";
+import { SiCplusplus, SiGithub } from "react-icons/si";
 const Technologies = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [clickedIndex, setClickedIndex] = useState(null);
