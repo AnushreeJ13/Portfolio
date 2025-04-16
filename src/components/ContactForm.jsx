@@ -23,7 +23,11 @@ const ContactForm = () => {
     email: '',
     message: ''
   });
+  
+  const [isSubmitted, setIsSubmitted] = useState(false); // Track submission status
+  const [isSaving, setIsSaving] = useState(false); // Track saving process
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -40,6 +44,7 @@ const ContactForm = () => {
         createdAt: Timestamp.now()
       });
       alert('Message sent successfully!');
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Error writing to Firestore:', error);
@@ -93,6 +98,7 @@ const ContactForm = () => {
             required
           ></textarea>
         </div>
+        
         <motion.button
           whileHover={{ scale: 1.2 }}
           type="submit"
@@ -101,6 +107,13 @@ const ContactForm = () => {
           Send Message
         </motion.button>
       </form>
+
+      {/* Show "Submitted" message after successful form submission */}
+      {isSubmitted && (
+        <div className="mt-4 text-center text-red-300 font-semibold">
+          <p>Message Submitted Successfully! ❤️</p>
+        </div>
+      )}
     </div>
   );
 };
