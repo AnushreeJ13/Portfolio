@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { HERO_CONTENT } from "../constants";
 import profilePic from "../assets/AnushreeProfile.jpg";
+import { Link } from 'react-router-dom';
+
+
 
 const Hero = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -150,7 +153,8 @@ const Hero = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 >
-                                <a href="./Contact.jsx">Contact Me</a>
+                                
+                                <a href="#contact" className="px-4 py-2 hover:bold">Contact Me</a>
                             </motion.button>
 
                         </motion.div>
