@@ -150,7 +150,7 @@ const Hero = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.98 }}
                                 >
-                                <a href="#contact">Contact Me</a>
+                                <a href="./Contact.jsx">Contact Me</a>
                             </motion.button>
 
                         </motion.div>
