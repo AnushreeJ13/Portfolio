@@ -10,7 +10,7 @@ const Education = () => {
       institution: "Indira Gandhi Delhi Technical University for Women",
       year: "2023 - 2027",
       type: "B.Tech - CSE - AI",
-      percentage: "CGPA: 9.69",
+      percentage: "CGPA: 9.66",
       bgColor: "bg-gradient-to-br from-pink-200 to-pink-300",
       textColor: "text-gray-800"
     },
