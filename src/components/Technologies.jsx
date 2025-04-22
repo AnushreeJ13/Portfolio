@@ -12,9 +12,7 @@ const Technologies = () => {
         { icon: <FaHtml5 className="text-5xl text-orange-500" />, key: "HTML" },
         { icon: <FaCss3Alt className="text-5xl text-blue-500" />, key: "CSS" },
         { icon: <FaJs className="text-5xl text-yellow-500" />, key: "JavaScript" },
-        { icon: <FaHtml5 className="text-5xl text-orange-500" />, key: "HTML" },
-        { icon: <FaCss3Alt className="text-5xl text-blue-500" />, key: "CSS" },
-        { icon: <FaJs className="text-5xl text-yellow-500" />, key: "JavaScript" },
+       
         { icon: <SiGithub className="text-5xl bg-white p-2 text-black" />, key: 'GitHub' },
         
        
